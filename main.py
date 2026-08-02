@@ -28,8 +28,8 @@ st.write("Aplicación interactiva desarrollada con Redes Neuronales Artificiales
 
 st.info("Ingresa o selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
 
-# Selector numérico interactivo
-numero_usuario = st.slider("Selecciona un número:", min_int=1, max_value=50, value=15)
+# Selector numérico interactivo (corregido min_value)
+numero_usuario = st.slider("Selecciona un número:", min_value=1, max_value=50, value=15)
 
 if st.button("🔍 Probar con la Red Neuronal"):
     # Convertimos el número del usuario a binario y hacemos la predicción
