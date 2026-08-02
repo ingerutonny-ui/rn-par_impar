@@ -43,3 +43,8 @@ if st.button("🔍 Probar con la Red Neuronal"):
         st.warning(f"El número **{numero_usuario}** es **{resultado_texto}**.")
     else:
         st.success(f"El número **{numero_usuario}** es **{resultado_texto}**.")
+
+# Agregamos la visualización del vector binario de 6 bits
+    st.write(f"🔢 Vector binario procesado (6 bits): `{binario_lista}`")
+
+
