@@ -1,31 +1,45 @@
 import numpy as np
 from sklearn.neural_network import MLPClassifier
+import streamlit as st
 
-# 1. Preparar el dataset de entrenamiento
-# Entradas: Números del 0 al 9 representados como matrices de características binarias (bits)
-# O simplemente usando directamente el valor entero si la red multicapa lo procesa.
-# Vamos a usar una representación binaria de 4 bits para los números del 0 al 15:
-# Ejemplo: 0 = [0,0,0,0], 1 = [0,0,0,1], 2 = [0,0,0,10], etc., o directo con valores numéricos.
-# Usemos una forma más directa con números enteros y una matriz de características simples:
-X = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12]])
+# --- 1. ENTRENAMIENTO DE LA RED NEURONAL (Del 1 al 50) ---
+# Usamos una representación de 6 bits para cubrir números hasta el 63 (suficiente para el 50)
+@st.cache_resource
+def entrenar_modelo():
+    # Creamos un dataset del 0 al 50 en formato binario de 6 bits
+    X = np.array([[int(x) for x in list(np.binary_repr(n, width=6))] for n in range(51)])
+    # Etiquetas: 0 si es par, 1 si es impar
+    y = np.array([n % 2 for n in range(51)])
+    
+    # Red Neuronal (Perceptrón Multicapa)
+    clf = MLPClassifier(hidden_layer_sizes=(8,), activation='relu', max_iter=3000, random_state=42)
+    clf.fit(X, y)
+    return clf
 
-# Salidas esperadas: 0 para Par, 1 para Impar
-y = np.array([1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
+modelo = entrenar_modelo()
 
-# 2. Crear el modelo de Red Neuronal Artificial (Perceptrón Multicapa)
-# Una capa oculta con 4 neuronas y función de activación ReLU / logistic
-clf = MLPClassifier(hidden_layer_sizes=(4,), activation='relu', max_iter=1000, random_state=42)
+# Función para convertir un número entero a su arreglo binario de 6 bits
+def a_binario(n):
+    return [int(x) for x in list(np.binary_repr(n, width=6))]
 
-# 3. Entrenar la red neuronal
-print("Entrenando la Red Neuronal Artificial...")
-clf.fit(X, y)
-print("¡Entrenamiento completado con éxito!\n")
+# --- 2. INTERFAZ GRÁFICA CON STREAMLIT ---
+st.title("🤖 Clasificador de Números Pares e Impares con RNA")
+st.write("Aplicación interactiva desarrollada con Redes Neuronales Artificiales en la nube.")
 
-# 4. Probar el modelo con nuevos números
-numeros_a_probar = np.array([[13], [16], [21], [28]])
-predicciones = clf.predict(numeros_a_probar)
+st.info("Ingresa o selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
 
-print("--- PRUEBAS DE PREDICCIÓN ---")
-for num, pred in zip(numeros_a_probar, predicciones):
-    resultado = "Impar" if pred == 1 else "Par"
-    print(f"Número: {num[0]} -> Predicción de la RNA: {resultado} ({pred})")
+# Selector numérico interactivo
+numero_usuario = st.slider("Selecciona un número:", min_int=1, max_value=50, value=15)
+
+if st.button("🔍 Probar con la Red Neuronal"):
+    # Convertimos el número del usuario a binario y hacemos la predicción
+    entrada = np.array([a_binario(numero_usuario)])
+    prediccion = modelo.predict(entrada)[0]
+    
+    resultado_texto = "IMPAR" if prediccion == 1 else "PAR"
+    
+    # Mostramos el resultado de forma visual en la pantalla
+    if prediccion == 1:
+        st.warning(f"El número **{numero_usuario}** es **{resultado_texto}**.")
+    else:
+        st.success(f"El número **{numero_usuario}** es **{resultado_texto}**.")
