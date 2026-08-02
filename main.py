@@ -23,8 +23,8 @@ def a_binario(n):
     return [int(x) for x in list(np.binary_repr(n, width=6))]
 
 # --- 2. INTERFAZ GRÁFICA CON STREAMLIT ---
-st.title("🤖 Clasificador de Números Pares e Impares con RNA")
-st.write("Aplicación interactiva desarrollada con Redes Neuronales Artificiales en la nube.")
+st.title("🤖 Clasificador de Números Pares e Impares con RNA 🤖")
+st.write("Aplicación interactiva desarrollada con Redes Neuronales Artificiales en la nube por Rubén Alarcón Coria.")
 
 st.info("Ingresa o selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
 
