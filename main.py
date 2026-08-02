@@ -21,10 +21,10 @@ def a_binario(n):
 st.title("🤖 Clasificador de Números Pares e Impares con RNA")
 st.write("Aplicación interactiva desarrollada con Redes Neuronales Artificiales en la nube por Rubén Alarcón Coria.")
 
-st.info("Selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
+st.info("Ingresa o selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
 
 # Selector numérico interactivo
-numero_usuario = st.slider("Selecciona un número:", min_value=1, max_value=50, value=9)
+numero_usuario = st.slider("Selecciona un número:", min_value=1, max_value=50, value=21)
 
 if st.button("🔍 Probar con la Red Neuronal"):
     binario_lista = a_binario(numero_usuario)
@@ -39,23 +39,19 @@ if st.button("🔍 Probar con la Red Neuronal"):
         st.success(f"El número **{numero_usuario}** es **{resultado_texto}**.")
         
     # --- DESGLOSE VISUAL DEL VECTOR BINARIO Y SUS PESOS ---
-    st.write("### 📊 Análisis del Vector Binario (6 bits)")
+    st.write("### 📊 Vector Binario de Entrada a la RNA")
     
-    # Creamos columnas visuales para mostrar la cabecera de potencias y los bits abajo
     col1, col2, col3, col4, col5, col6 = st.columns(6)
-    pesos = [32, 16, 8, 4, 2, 1]
     
     with col1:
-        st.metric(label="Bit (32)", value=binario_lista[0])
+        st.metric(label="[ 32", value=binario_lista[0])
     with col2:
-        st.metric(label="Bit (16)", value=binario_lista[1])
+        st.metric(label="16", value=binario_lista[1])
     with col3:
-        st.metric(label="Bit (8)", value=binario_lista[2])
+        st.metric(label="8", value=binario_lista[2])
     with col4:
-        st.metric(label="Bit (4)", value=binario_lista[3])
+        st.metric(label="4", value=binario_lista[3])
     with col5:
-        st.metric(label="Bit (2)", value=binario_lista[4])
+        st.metric(label="2", value=binario_lista[4])
     with col6:
-        st.metric(label="Bit (1)", value=binario_lista[5])
-        
-    st.caption(f"Vector completo ingresado a la RNA: `{binario_lista}`")
+        st.metric(label="1 ]", value=binario_lista[5])
