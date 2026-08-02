@@ -21,7 +21,7 @@ def a_binario(n):
 st.title("🤖 Clasificador de Números Pares e Impares con RNA")
 st.write("Aplicación interactiva desarrollada con Redes Neuronales Artificiales en la nube por Rubén Alarcón Coria.")
 
-st.info("Ingresa o selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
+st.info("Selecciona un número entero del **1 al 50** para que la Red Neuronal prediga si es Par o Impar.")
 
 # Selector numérico interactivo
 numero_usuario = st.slider("Selecciona un número:", min_value=1, max_value=50, value=9)
