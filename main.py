@@ -33,7 +33,8 @@ numero_usuario = st.slider("Selecciona un número:", min_value=1, max_value=50, 
 
 if st.button("🔍 Probar con la Red Neuronal"):
     # Convertimos el número del usuario a binario y hacemos la predicción
-    entrada = np.array([a_binario(numero_usuario)])
+    binario_lista = a_binario(numero_usuario)
+    entrada = np.array([binario_lista])
     prediccion = modelo.predict(entrada)[0]
     
     resultado_texto = "IMPAR" if prediccion == 1 else "PAR"
@@ -43,8 +44,6 @@ if st.button("🔍 Probar con la Red Neuronal"):
         st.warning(f"El número **{numero_usuario}** es **{resultado_texto}**.")
     else:
         st.success(f"El número **{numero_usuario}** es **{resultado_texto}**.")
-
-# Agregamos la visualización del vector binario de 6 bits
+        
+    # Agregamos la visualización del vector binario de 6 bits
     st.write(f"🔢 Vector binario procesado (6 bits): `{binario_lista}`")
-
-
